@@ -1,4 +1,10 @@
 #!/usr/bin/make -f
 
+export DH_GOLANG_EXCLUDES := example
+
 %:
-	dh $@
+	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
+
+override_dh_auto_configure:
+	dh_auto_configure
+	rm -v _build/src/github.com/chzyer/readline/complete_segment_test.go
